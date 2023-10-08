@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','Naphtech Ecommerce')
+@section('title','Franciscan Agencies')
 @section('main-content')
 
     <div class="section mt-5">
@@ -12,14 +12,14 @@
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-6 carousel-content-wrapper">
-                                        <h1 >Welcome to Naphtech Ecommerce</h1>
+                                        <h1 >Welcome to Franciscan Agencies</h1>
                                         <br>
-                                        <p>Get to order your merchandise on the go! Available in East Africa!</p>
+                                        <p>Get to order your catholic merchandise on the go! Available in East Africa!</p>
                                         <br>
                                         <br>
                                         <br>
                                         <div class="carousel-content-btns">
-                                            <a href="{{route('login.form')}}" class="btn btn-success">Start SHopping</a>
+                                            <a href="{{route('login.form')}}" class="btn btn-success text-white">Start SHopping</a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -144,94 +144,94 @@
         $featured=DB::table('products')->where('is_featured',1)->where('status','active')->orderBy('id','DESC')->limit(1)->get();
     @endphp --}}
     <!-- Start Midium Banner  -->
-    <section class="midium-banner">
-        <div class="container">
-            <div class="row">
-                @if($featured)
-                    @foreach($featured as $data)
-                        <!-- Single Banner  -->
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="single-banner">
-                                @php
-                                    $photo=explode(',',$data->photo);
-                                @endphp
-                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                <div class="content">
-                                    <p>{{$data->cat_info['title']}}</p>
-                                    <h3>{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>
-                                    <a href="{{route('product-detail',$data->slug)}}">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /End Single Banner  -->
-                    @endforeach
-                @endif
-            </div>
-        </div>
-    </section>
+{{--    <section class="midium-banner">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                @if($featured)--}}
+{{--                    @foreach($featured as $data)--}}
+{{--                        <!-- Single Banner  -->--}}
+{{--                        <div class="col-lg-6 col-md-6 col-12">--}}
+{{--                            <div class="single-banner">--}}
+{{--                                @php--}}
+{{--                                    $photo=explode(',',$data->photo);--}}
+{{--                                @endphp--}}
+{{--                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">--}}
+{{--                                <div class="content">--}}
+{{--                                    <p>{{$data->cat_info['title']}}</p>--}}
+{{--                                    <h3>{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>--}}
+{{--                                    <a href="{{route('product-detail',$data->slug)}}">Shop Now</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <!-- /End Single Banner  -->--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <!-- End Midium Banner -->
 
     <!-- Start Most Popular -->
-    <div class="product-area most-popular section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h2>Hot Item</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="owl-carousel popular-slider">
-                        @foreach($product_lists as $product)
-                            @if($product->condition=='hot')
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <a href="{{route('product-detail',$product->slug)}}">
-                                            @php
-                                                $photo=explode(',',$product->photo);
-                                            // dd($photo);
-                                            @endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            {{-- <span class="out-of-stock">Hot</span> --}}
-                                        </a>
-                                        <div class="button-head">
-                                            <div class="product-action">
-                                                <a data-toggle="modal" data-target="#{{$product->id}}"
-                                                   title="Quick View" href="#"><i
-                                                        class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist"
-                                                   href="{{route('add-to-wishlist',$product->slug)}}"><i
-                                                        class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                            </div>
-                                            <div class="product-action-2">
-                                                <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>
-                                        </h3>
-                                        <div class="product-price">
-                                            <span class="old">${{number_format($product->price,2)}}</span>
-                                            @php
-                                                $after_discount=($product->price-($product->price*$product->discount)/100)
-                                            @endphp
-                                            <span>${{number_format($after_discount,2)}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="product-area most-popular section">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-12">--}}
+{{--                    <div class="section-title">--}}
+{{--                        <h2>Hot Item</h2>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-12">--}}
+{{--                    <div class="owl-carousel popular-slider">--}}
+{{--                        @foreach($product_lists as $product)--}}
+{{--                            @if($product->condition=='hot')--}}
+{{--                                <!-- Start Single Product -->--}}
+{{--                                <div class="single-product">--}}
+{{--                                    <div class="product-img">--}}
+{{--                                        <a href="{{route('product-detail',$product->slug)}}">--}}
+{{--                                            @php--}}
+{{--                                                $photo=explode(',',$product->photo);--}}
+{{--                                            // dd($photo);--}}
+{{--                                            @endphp--}}
+{{--                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">--}}
+{{--                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">--}}
+{{--                                            --}}{{-- <span class="out-of-stock">Hot</span> --}}
+{{--                                        </a>--}}
+{{--                                        <div class="button-head">--}}
+{{--                                            <div class="product-action">--}}
+{{--                                                <a data-toggle="modal" data-target="#{{$product->id}}"--}}
+{{--                                                   title="Quick View" href="#"><i--}}
+{{--                                                        class=" ti-eye"></i><span>Quick Shop</span></a>--}}
+{{--                                                <a title="Wishlist"--}}
+{{--                                                   href="{{route('add-to-wishlist',$product->slug)}}"><i--}}
+{{--                                                        class=" ti-heart "></i><span>Add to Wishlist</span></a>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="product-action-2">--}}
+{{--                                                <a href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="product-content">--}}
+{{--                                        <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>--}}
+{{--                                        </h3>--}}
+{{--                                        <div class="product-price">--}}
+{{--                                            <span class="old">${{number_format($product->price,2)}}</span>--}}
+{{--                                            @php--}}
+{{--                                                $after_discount=($product->price-($product->price*$product->discount)/100)--}}
+{{--                                            @endphp--}}
+{{--                                            <span>${{number_format($after_discount,2)}}</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <!-- End Single Product -->--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <!-- End Most Popular Area -->
 
     <!-- Start Shop Home List  -->
@@ -287,84 +287,84 @@
     <!-- End Shop Home List  -->
 
     <!-- Start Shop Blog  -->
-    <section class="shop-blog section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h2>From Our Blog</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @if($posts)
-                    @foreach($posts as $post)
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <!-- Start Single Blog  -->
-                            <div class="shop-single-blog">
-                                <img src="{{$post->photo}}" alt="{{$post->photo}}">
-                                <div class="content">
-                                    <p class="date">{{$post->created_at->format('d M , Y. D')}}</p>
-                                    <a href="{{route('blog.detail',$post->slug)}}" class="title">{{$post->title}}</a>
-                                    <a href="{{route('blog.detail',$post->slug)}}" class="more-btn">Continue Reading</a>
-                                </div>
-                            </div>
-                            <!-- End Single Blog  -->
-                        </div>
-                    @endforeach
-                @endif
+{{--    <section class="shop-blog section">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-12">--}}
+{{--                    <div class="section-title">--}}
+{{--                        <h2>From Our Blog</h2>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row">--}}
+{{--                @if($posts)--}}
+{{--                    @foreach($posts as $post)--}}
+{{--                        <div class="col-lg-4 col-md-6 col-12">--}}
+{{--                            <!-- Start Single Blog  -->--}}
+{{--                            <div class="shop-single-blog">--}}
+{{--                                <img src="{{$post->photo}}" alt="{{$post->photo}}">--}}
+{{--                                <div class="content">--}}
+{{--                                    <p class="date">{{$post->created_at->format('d M , Y. D')}}</p>--}}
+{{--                                    <a href="{{route('blog.detail',$post->slug)}}" class="title">{{$post->title}}</a>--}}
+{{--                                    <a href="{{route('blog.detail',$post->slug)}}" class="more-btn">Continue Reading</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <!-- End Single Blog  -->--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+{{--                @endif--}}
 
-            </div>
-        </div>
-    </section>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <!-- End Shop Blog  -->
 
     <!-- Start Shop Services Area -->
-    <section class="shop-services section home">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-reload"></i>
-                        <h4>Free Return</h4>
-                        <p>Within 30 days returns</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-lock"></i>
-                        <h4>Sucure Payment</h4>
-                        <p>100% secure payment</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="ti-tag"></i>
-                        <h4>Best Peice</h4>
-                        <p>Guaranteed price</p>
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-            </div>
-        </div>
-    </section>
+{{--    <section class="shop-services section home">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-3 col-md-6 col-12">--}}
+{{--                    <!-- Start Single Service -->--}}
+{{--                    <div class="single-service">--}}
+{{--                        <i class="ti-rocket"></i>--}}
+{{--                        <h4>Free shiping</h4>--}}
+{{--                        <p>Orders over $100</p>--}}
+{{--                    </div>--}}
+{{--                    <!-- End Single Service -->--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 col-md-6 col-12">--}}
+{{--                    <!-- Start Single Service -->--}}
+{{--                    <div class="single-service">--}}
+{{--                        <i class="ti-reload"></i>--}}
+{{--                        <h4>Free Return</h4>--}}
+{{--                        <p>Within 30 days returns</p>--}}
+{{--                    </div>--}}
+{{--                    <!-- End Single Service -->--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 col-md-6 col-12">--}}
+{{--                    <!-- Start Single Service -->--}}
+{{--                    <div class="single-service">--}}
+{{--                        <i class="ti-lock"></i>--}}
+{{--                        <h4>Sucure Payment</h4>--}}
+{{--                        <p>100% secure payment</p>--}}
+{{--                    </div>--}}
+{{--                    <!-- End Single Service -->--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 col-md-6 col-12">--}}
+{{--                    <!-- Start Single Service -->--}}
+{{--                    <div class="single-service">--}}
+{{--                        <i class="ti-tag"></i>--}}
+{{--                        <h4>Best Peice</h4>--}}
+{{--                        <p>Guaranteed price</p>--}}
+{{--                    </div>--}}
+{{--                    <!-- End Single Service -->--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <!-- End Shop Services Area -->
 
-    @include('frontend.layouts.newsletter')
+{{--    @include('frontend.layouts.newsletter')--}}
 
     <!-- Modal -->
     @if($product_lists)
@@ -496,7 +496,7 @@
                                         </form>
                                         <div class="default-social">
                                             <!-- ShareThis BEGIN -->
-                                            <div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
+{{--                                            <div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->--}}
                                         </div>
                                     </div>
                                 </div>
@@ -511,12 +511,12 @@
 @endsection
 
 @push('styles')
-    <script type='text/javascript'
-            src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons'
-            async='async'></script>
-    <script type='text/javascript'
-            src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons'
-            async='async'></script>
+{{--    <script type='text/javascript'--}}
+{{--            src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons'--}}
+{{--            async='async'></script>--}}
+{{--    <script type='text/javascript'--}}
+{{--            src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons'--}}
+{{--            async='async'></script>--}}
     <style>
         /* Banner Sliding */
         #Gslider .carousel-inner {

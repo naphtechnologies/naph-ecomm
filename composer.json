@@ -7,7 +7,9 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "flugger/laravel-responder": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
+        "kingflamez/laravelrave": "^4.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
@@ -32,7 +34,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Touhidurabir\\Filterable\\": "packages/laravel-filterable/src/"
+            "Touhidurabir\\Filterable\\": "packages/laravel-filterable/src/",
+            "Srmklive\\PayPal\\": "vendor/srmklive/paypal/src/"
         }
     },
     "autoload-dev": {

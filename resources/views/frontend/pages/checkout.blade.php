@@ -20,13 +20,13 @@
         </div>
     </div>
     <!-- End Breadcrumbs -->
-            
+
     <!-- Start Checkout -->
     <section class="shop checkout section">
         <div class="container">
                 <form class="form" method="POST" action="{{route('cart.order')}}">
                     @csrf
-                    <div class="row"> 
+                    <div class="row">
 
                         <div class="col-lg-8 col-12">
                             <div class="checkout-form">
@@ -331,6 +331,7 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Address Line 2</label>
@@ -349,7 +350,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <!--/ End Form -->
                             </div>
@@ -371,11 +372,11 @@
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
                                                         @endforeach
                                                     </select>
-                                                @else 
+                                                @else
                                                     <span>Free</span>
                                                 @endif
                                             </li>
-                                            
+
                                             @if(session('coupon'))
                                             <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
                                             @endif
@@ -402,9 +403,10 @@
                                             {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label> --}}
                                             <form-group>
                                                 <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
-                                                <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label> 
+                                                <input name="payment_method"  type="radio" value="mpesa"> <label> Mpesa</label><br>
+                                                <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label>
                                             </form-group>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -429,10 +431,35 @@
                         </div>
                     </div>
                 </form>
+
+            <!-- Mpesa Payment Modal -->
+            <div class="modal fade modal-size" id="mpesaModal" tabindex="-1" role="dialog" aria-labelledby="mpesaModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mpesaModalLabel">Enter Phone Number for Mpesa Payment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="mpesaForm">
+                                @csrf
+                                <div class="form-group form-modal">
+                                    <label for="mpesaPhoneNumber">Enter Your Mpesa Phone Number</label>
+                                    <input type="text" class="form-control" id="mpesaPhoneNumber" name="mpesa_phone" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary button-check">Proceed to Checkout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
     <!--/ End Checkout -->
-    
+
     <!-- Start Shop Services Area  -->
     <section class="shop-services section home">
         <div class="container">
@@ -477,7 +504,7 @@
         </div>
     </section>
     <!-- End Shop Services -->
-    
+
     <!-- Start Shop Newsletter  -->
     <section class="shop-newsletter section">
         <div class="container">
@@ -503,6 +530,7 @@
 @endsection
 @push('styles')
 	<style>
+
 		li.shipping{
 			display: inline-flex;
 			width: 100%;
@@ -542,6 +570,24 @@
 		.form-select .nice-select::after {
 			top: 14px;
 		}
+        .modal-size {
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            /*display: flex;*/
+            align-items: center;
+            justify-content: center;
+            /*min-height: 100vh;*/
+        }
+        .form-modal {
+            margin-left: 20px;
+            width: 400px;
+        }
+
+        .button-check {
+            margin-left: 20px;
+        }
+
 	</style>
 @endpush
 @push('scripts')
@@ -569,8 +615,8 @@
 		$(document).ready(function(){
 			$('.shipping select[name=shipping]').change(function(){
 				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
-				let subtotal = parseFloat( $('.order_subtotal').data('price') ); 
-				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0; 
+				let subtotal = parseFloat( $('.order_subtotal').data('price') );
+				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
 				// alert(coupon);
 				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
 			});
@@ -578,5 +624,35 @@
 		});
 
 	</script>
+
+    <script>
+        $(document).ready(function () {
+            // Show the Mpesa modal when the Mpesa payment option is selected
+            $('input[name="payment_method"]').on('change', function () {
+                if ($(this).val() === 'mpesa') {
+                    $('#mpesaModal').modal('show');
+                }
+            });
+
+            // Handle form submission of the Mpesa modal
+            $('#mpesaForm').on('submit', function (e) {
+                e.preventDefault();
+
+                // Get the entered phone number
+                var mpesaPhoneNumber = $('#mpesaPhoneNumber').val();
+
+                // Close the modal
+                $('#mpesaModal').modal('hide');
+
+                // Update the action URL of the main form to include the phone number as a query parameter
+                var mainFormAction = '{{ route("cart.order") }}';
+                mainFormAction += '?mpesa_phone=' + mpesaPhoneNumber;
+                $('form.form').attr('action', mainFormAction);
+
+                // Submit the main form for checkout
+                $('form.form').submit();
+            });
+        });
+    </script>
 
 @endpush

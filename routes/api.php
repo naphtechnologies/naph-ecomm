@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MpesaController;
+use App\Models\RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::any('/callback', function () {
+    $data = file_get_contents('php://input');
+    $mrequest = new RequestModel();
+    $mrequest->request = $data;
+    $mrequest->save();
+    $mpesa = new MpesaController();
+    $mpesa->stkCallbackResponse = $data;
+    $mpesa->updateStatus();
+    return $data;
 });

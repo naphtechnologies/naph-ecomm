@@ -15,7 +15,7 @@
 								$settings=DB::table('settings')->get();
 							@endphp
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:254727991993">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
@@ -47,23 +47,23 @@
 						</div>
 						<!-- End Single Widget -->
 					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
-							<!-- Single Widget -->
-							<div class="contact">
-								<ul>
-									<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->email}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-							<div class="sharethis-inline-follow-buttons"></div>
-						</div>
-						<!-- End Single Widget -->
-					</div>
+{{--					<div class="col-lg-3 col-md-6 col-12">--}}
+{{--						<!-- Single Widget -->--}}
+{{--						<div class="single-footer social">--}}
+{{--							<h4>Get In Tuch</h4>--}}
+{{--							<!-- Single Widget -->--}}
+{{--							<div class="contact">--}}
+{{--								<ul>--}}
+{{--									<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>--}}
+{{--									<li>@foreach($settings as $data) {{$data->email}} @endforeach</li>--}}
+{{--									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>--}}
+{{--								</ul>--}}
+{{--							</div>--}}
+{{--							<!-- End Single Widget -->--}}
+{{--							<div class="sharethis-inline-follow-buttons"></div>--}}
+{{--						</div>--}}
+{{--						<!-- End Single Widget -->--}}
+{{--					</div>--}}
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
-								<p>Copyright © {{date('Y')}} <a href="https://github.com/Naphtali-cpu" target="_blank">Naphtali Makori</a>  -  All Rights Reserved.</p>
+								<p>Copyright © {{date('Y')}} <a href="https://github.com/Naphtali-cpu" target="_blank">Franciscan Agencies</a>  -  All Rights Reserved.</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
