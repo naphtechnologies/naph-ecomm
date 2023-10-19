@@ -53,6 +53,7 @@ class MpesaController extends Controller
             'callback' => $this->CallBackURL,
             'transactiontype' => $this->TransactionType,
         ];
+//        dd($data);
         return view('mpesa.mpesa', $data);
     }
 

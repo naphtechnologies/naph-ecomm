@@ -140,6 +140,63 @@
         </div>
     </div>
     <!-- End Product Area -->
+
+{{--    Start Facilities section--}}
+    <div class="product-area section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Facilities</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-info">
+                        <div class="tab-content isotope-grid" id="myTabContent">
+                            @if(count($listings) > 0)
+                                @foreach($listings as $listing)
+                                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="">
+                                                    <img class="default-img" src="{{ url($listing ->thumbnail_0) }}">
+                                                    <img class="hover-img" src="{{ url($listing ->thumbnail_0) }}">
+
+
+                                                </a>
+                                                <div class="button-head">
+                                                    <div class="product-action">
+
+                                                    </div>
+                                                    <div class="product-action-2">
+                                                        <a title="Add to cart"
+                                                           href="">Book Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3>
+                                                    <a href="">{{$listing->title}}</a>
+                                                </h3>
+                                                <div class="product-price">
+                                                    <span>${{number_format($listing->price)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                No Properties found. Seems the admin has not added yet.
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{--    End listing section--}}
     {{-- @php
         $featured=DB::table('products')->where('is_featured',1)->where('status','active')->orderBy('id','DESC')->limit(1)->get();
     @endphp --}}

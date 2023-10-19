@@ -88,6 +88,8 @@ Route::post('/blog/filter', 'FrontendController@blogFilter')->name('blog.filter'
 Route::get('blog-cat/{slug}', 'FrontendController@blogByCategory')->name('blog.category');
 Route::get('blog-tag/{slug}', 'FrontendController@blogByTag')->name('blog.tag');
 
+Route::get('/facilities-listing', 'FrontendController@facilitiesListing')->name('facilities-listing');
+
 // NewsLetter
 Route::post('/subscribe', 'FrontendController@subscribe')->name('subscribe');
 
