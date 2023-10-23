@@ -24,7 +24,7 @@ class MpesaController extends Controller
     public $source, $app;
     public $stkCallbackResponse;
 
-    public $CallBackURL = 'https://a17f-197-237-1-63.ngrok-free.app/api/callback';
+    public $CallBackURL = 'https://194c-197-237-1-63.ngrok-free.app/api/callback';
     public $response = array();
     public $access_token;
     public $TransactionType = 'CustomerPayBillOnline';

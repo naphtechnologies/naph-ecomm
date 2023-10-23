@@ -20,7 +20,7 @@
                                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="">
+                                                <a href="{{ route('single.listing', $listing -> id) }}">
                                                     <img class="default-img" src="{{ url($listing ->thumbnail_0) }}">
                                                     <img class="hover-img" src="{{ url($listing ->thumbnail_0) }}">
 
@@ -38,7 +38,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3>
-                                                    <a href="">{{$listing->title}}</a>
+                                                    <a href="{{ route('single.listing', $listing -> id) }}">{{$listing->title}}</a>
                                                 </h3>
                                                 <div class="product-price">
                                                     <span>${{number_format($listing->price)}}</span>

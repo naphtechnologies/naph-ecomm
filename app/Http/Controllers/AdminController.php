@@ -54,7 +54,6 @@ class AdminController extends Controller
     }
 
     public function settingsUpdate(Request $request){
-        // return $request->all();
         $this->validate($request,[
             'short_des'=>'required|string',
             'description'=>'required|string',
@@ -65,9 +64,8 @@ class AdminController extends Controller
             'phone'=>'required|string',
         ]);
         $data=$request->all();
-        // return $data;
+
         $settings=Settings::first();
-        // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
             request()->session()->flash('success','Setting successfully updated');

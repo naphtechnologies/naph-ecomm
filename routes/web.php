@@ -89,7 +89,7 @@ Route::get('blog-cat/{slug}', 'FrontendController@blogByCategory')->name('blog.c
 Route::get('blog-tag/{slug}', 'FrontendController@blogByTag')->name('blog.tag');
 
 Route::get('/facilities-listing', 'FrontendController@facilitiesListing')->name('facilities-listing');
-
+Route::get('/listing/{id}', 'FrontendController@listing')->name('single.listing');
 // NewsLetter
 Route::post('/subscribe', 'FrontendController@subscribe')->name('subscribe');
 
@@ -115,6 +115,8 @@ Route::post('/pay', [FlutterwaveController::class, 'initialize'])->name('pay');
 // The callback url after a payment
 Route::get('/rave/callback', [FlutterwaveController::class, 'callback'])->name('callback');
 
+Route::post('/inquiry', 'FrontendController@sendInquiry')->name('send-inquiry');
+
 // Backend section start
 
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
@@ -138,6 +140,10 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Listings routes
     Route::resource('/listing', 'ListingController');
+//    Inquiries routes
+    Route::resource('/inquiries', 'InquiryController');
+
+    Route::get('/inquiry-details/{id}', 'InquiryController@getInquiriesDetails')->name('inquiry-detail');
     // Ajax for sub category
     Route::post('/category/{id}/child', 'CategoryController@getChildByParent');
     // POST category
@@ -172,6 +178,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
 //    Adding credentials for M-Pesa from the backend
     Route::post('mpesa-auth-credentials',[MpesaController::class,'addcredentials'])->name('mpesa-auth-data');
+
 });
 
 

@@ -35,20 +35,20 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <form action="{{route('mpesa-simulate')}}" method="post">
-                @csrf
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="254">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount">
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-success">Submit</button>
-                    </div>
-                </div>
-            </form>
+{{--            <form action="{{route('mpesa-simulate')}}" method="post">--}}
+{{--                @csrf--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="254">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        <button class="btn btn-success">Submit</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </form>--}}
         </div>
     </div>
 

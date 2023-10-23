@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Banner;
+use App\Models\Inquiry;
 use App\Models\Listing;
 use App\Models\Product;
 use App\Models\Category;
@@ -355,6 +356,11 @@ class FrontendController extends Controller
 //        dump($listings);
         return view('frontend.pages.listings-list', compact('listings'));
     }
+    public function listing($id)
+    {
+        $listing = Listing::where('is_published','1')->findOrFail($id);
+        return view('frontend.pages.listing', compact('listing'));
+    }
 
     // Login
     public function login(){
@@ -371,6 +377,35 @@ class FrontendController extends Controller
             request()->session()->flash('error','Invalid email and password pleas try again!');
             return redirect()->back();
         }
+    }
+
+//    Sending inquiry for a specific facility to the admin
+    public function sendInquiry(Request $request) {
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required',
+            'contact_number'=>'required',
+            'message'=>'required',
+            'listing_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $contact = new Inquiry([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'contact_number' => $request->get('contact_number'),
+            'description' => $request->get('message'),
+            'listing_id' => $request->get('listing_id'),
+            'user_id' => $request->get('user_id'),
+        ]);
+
+        $isSuccess =$contact->save();
+        if ($isSuccess) {
+            request()->session()->flash('success','Inquiry sent successfully!');
+        } else {
+            request()->session()->flash('error','An issue occurred, please try again!');
+        }
+        return redirect()->back();
     }
 
     public function logout(){

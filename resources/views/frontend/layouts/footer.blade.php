@@ -9,7 +9,10 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="{{asset('backend/img/logo2.png')}}" alt="#"></a>
+                                @php
+                                    $settings=DB::table('settings')->get();
+                                @endphp
+                                <a href="{{route('home')}}"><img src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo" style="width: 100px; height: 100px;"></a>
 							</div>
 							@php
 								$settings=DB::table('settings')->get();
