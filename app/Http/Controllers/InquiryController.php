@@ -10,7 +10,6 @@ class InquiryController extends Controller
     public function index()
     {
         $inquiries = Inquiry::all();
-
         return view('backend.inquiry.index', compact('inquiries'));
     }
     public function getInquiriesDetails($id)

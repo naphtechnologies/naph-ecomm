@@ -404,6 +404,7 @@
                                             <form-group>
                                                 <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
                                                 <input name="payment_method"  type="radio" value="mpesa"> <label> Mpesa</label><br>
+                                                <input name="payment_method"  type="radio" value="mtn"> <label> MTN Momo</label><br>
                                                 <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label>
                                             </form-group>
 

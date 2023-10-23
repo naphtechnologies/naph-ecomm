@@ -76,11 +76,12 @@ class MpesaController extends Controller
             ];
         }, $cart);
 
+
         $total = 0;
         foreach ($data['items'] as $item) {
             $total += $item['price'] * $item['qty'];
         }
-        $exchangeRate = 10;
+        $exchangeRate = 150;
 
         // Assuming $total contains the amount in USD
         $totalInUSD = $total;
@@ -95,7 +96,7 @@ class MpesaController extends Controller
 
 //        $mpesaPhoneNumber = $mrequest->query('mpesa_phone');
 
-        $this->Amount = '1';
+        $this->Amount = $totalInKSH;
         $this->AccountReference = 'Demo reference';
         $this->TransactionDesc = "Naphtech Ecommerce";
         $this->PartyA = $mpesa_phone;
