@@ -111,7 +111,7 @@ Route::get('payment/success', [PayPalController::class, 'success'])->name('payme
 Route::get('simulate/{mpesa_phone}', [MpesaController::class,'simulate'])->name('mpesa-simulate');
 
 //Payment with Flutterwave(MTN MOMO)
-Route::get('/pay', [FlutterwaveController::class, 'initialize'])->name('momo-pay');
+Route::get('/pay/{order_id}', [FlutterwaveController::class, 'initialize'])->name('momo-pay');
 // The callback url after a payment
 Route::get('/rave/callback', [FlutterwaveController::class, 'callback'])->name('callback');
 

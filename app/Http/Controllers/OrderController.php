@@ -122,7 +122,7 @@ class OrderController extends Controller
 //            dd($mpesaPhoneNumber);
             return redirect()->route('mpesa-simulate', ['mpesa_phone' => $mpesaPhoneNumber])->with(['id' => $order->id]);
         } elseif (request('payment_method') == 'mtn') {
-            return redirect()->route('momo-pay')->with(['id' => $order->id]);
+            return redirect()->route('momo-pay', ['order_id' => $order->id])->with(['id' => $order->id]);
         }
         else {
             session()->forget('cart');

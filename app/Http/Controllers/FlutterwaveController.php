@@ -14,7 +14,7 @@ class FlutterwaveController extends Controller
      * Initialize Rave payment process
      * @return void
      */
-    public function initialize()
+    public function initialize($order_id)
     {
         //This generates a payment reference
         $reference = Flutterwave::generateReference();
@@ -57,7 +57,7 @@ class FlutterwaveController extends Controller
             'email' => auth()->user()->email,
             'tx_ref' => $reference,
             'currency' => "UGX",
-            'redirect_url' => route('callback'),
+            'redirect_url' => route('callback', ['order_id' => $order_id]),
             'customer' => [
                 'email' => auth()->user()->email,
                 "phone_number" => auth()->user()->contact_number,
@@ -70,6 +70,7 @@ class FlutterwaveController extends Controller
                 "description" => $currentDate
             ]
         ];
+
 
         $payment = Flutterwave::initializePayment($data);
 
@@ -89,6 +90,7 @@ class FlutterwaveController extends Controller
     {
 
         $status = request()->status;
+        $order_num = request()->order_id;
 
         //if payment is successful
         if ($status ==  'successful') {
@@ -96,17 +98,17 @@ class FlutterwaveController extends Controller
             $transactionID = Flutterwave::getTransactionIDFromCallback();
             $data = Flutterwave::verifyTransaction($transactionID);
 
-            $orderNumber = session()->get('order_number');
             $userId = auth()->user()->id;
 
-            dd($orderNumber);
+//            dd($order_num);
 
             // Update the payment_status in the Order table
-            Order::where('order_number', $orderNumber)
+            Order::where('id', $order_num)
                 ->where('user_id', $userId)
-                ->update('payment_status', 'paid');
+                ->update(['payment_status' => 'paid']);
 
-            Cart::where('user_id', auth()->user()->id)->clear();
+            Cart::where('user_id', auth()->user()->id)->delete();
+
             session()->flash('success', 'Payment was successful. Your order has been confirmed.');
 
             return redirect()->route('home');
