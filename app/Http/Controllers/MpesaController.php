@@ -24,7 +24,7 @@ class MpesaController extends Controller
     public $source, $app;
     public $stkCallbackResponse;
 
-    public $CallBackURL = 'https://194c-197-237-1-63.ngrok-free.app/api/callback';
+    public $CallBackURL = 'https://b28b-197-237-1-63.ngrok-free.app/api/callback';
     public $response = array();
     public $access_token;
     public $TransactionType = 'CustomerPayBillOnline';
@@ -96,7 +96,7 @@ class MpesaController extends Controller
 
 //        $mpesaPhoneNumber = $mrequest->query('mpesa_phone');
 
-        $this->Amount = $totalInKSH;
+        $this->Amount = 1;
         $this->AccountReference = 'Demo reference';
         $this->TransactionDesc = "Naphtech Ecommerce";
         $this->PartyA = $mpesa_phone;
@@ -283,6 +283,7 @@ class MpesaController extends Controller
                 $order = Order::where('user_id', $userId)
                     ->where('id', $orderId)
                     ->first();
+
 
                 if ($order) {
                     $order->payment_status = 'paid';

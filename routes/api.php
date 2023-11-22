@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::any('/callback', function () {
+Route::post('/callback', function () {
     $data = file_get_contents('php://input');
     $mrequest = new RequestModel();
     $mrequest->request = $data;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use KingFlamez\Rave\Facades\Rave as Flutterwave;
@@ -52,7 +53,7 @@ class FlutterwaveController extends Controller
         // Enter the details of the payment
         $data = [
             'payment_options' => 'card,banktransfer',
-            'amount' => $totalInUgx,
+            'amount' => 5000,
             'email' => auth()->user()->email,
             'tx_ref' => $reference,
             'currency' => "UGX",
@@ -82,7 +83,7 @@ class FlutterwaveController extends Controller
 
     /**
      * Obtain Rave callback information
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function callback()
     {
@@ -95,15 +96,32 @@ class FlutterwaveController extends Controller
             $transactionID = Flutterwave::getTransactionIDFromCallback();
             $data = Flutterwave::verifyTransaction($transactionID);
 
-            dd($data);
+            $orderNumber = session()->get('order_number');
+            $userId = auth()->user()->id;
+
+            dd($orderNumber);
+
+            // Update the payment_status in the Order table
+            Order::where('order_number', $orderNumber)
+                ->where('user_id', $userId)
+                ->update('payment_status', 'paid');
+
+            Cart::where('user_id', auth()->user()->id)->clear();
+            session()->flash('success', 'Payment was successful. Your order has been confirmed.');
+
+            return redirect()->route('home');
         }
         elseif ($status ==  'cancelled'){
-            //Put desired action/code after transaction has been cancelled here
+            session()->flash('error', 'Payment was canceled!');
+
+            return redirect()->route('home');
         }
         else{
-            //Put desired action/code after transaction has failed here
+            session()->flash('error', 'Payment failed!');
+
+            // Redirect back to the home page
+            return redirect()->route('home');
         }
-//        TODO: Put success page after payment is successfully
 
     }
 }

@@ -32,7 +32,7 @@
                                     <td>{{ $inquiry -> name }}</td>
                                     <td>{{ $inquiry -> email }}</td>
                                     <td>{{ $inquiry -> contact_number }}</td>
-                                    <td>{{ $inquiry -> listing-> title }}</td>
+{{--                                    <td>{{ $inquiry -> listing-> title }}</td>--}}
                                     <td>{{ $inquiry -> user-> username }}</td>
                                     <td>
                                         <a href="{{ route('inquiry-detail', $inquiry -> id ) }}"><span
