@@ -61,6 +61,17 @@ class MpesaController extends Controller
     //simulate
     public function simulate(Request $mrequest, $mpesa_phone)
     {
+
+        //        Handling the conversion rate realtime
+
+        $exchangeRateUrl = "https://v6.exchangerate-api.com/v6/4d93e89277f14832f3a3f71e/pair/USD/KES";
+        $ch = curl_init($exchangeRateUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $exchangeRateResponse = curl_exec($ch);
+        curl_close($ch);
+
+        $exchangeRateData = json_decode($exchangeRateResponse, true);
+
         $cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get()->toArray();
         $data = [];
 
@@ -81,34 +92,38 @@ class MpesaController extends Controller
         foreach ($data['items'] as $item) {
             $total += $item['price'] * $item['qty'];
         }
-        $exchangeRate = 150;
-
         // Assuming $total contains the amount in USD
         $totalInUSD = $total;
 
-        // Convert USD to KSH and cast it as an integer to remove the decimal
-        $totalInKSH = (int)($totalInUSD * $exchangeRate);
+//        dd($exchangeRateData);
 
-        // Update $data['total'] with the converted amount
-        $data['total'] = $totalInKSH;
+        if (isset($exchangeRateData['result']) && $exchangeRateData['result'] === 'success') {
+            $conversionRate = $exchangeRateData['conversion_rate'];
 
-        //        dd($totalInKSH);
+//            dd($conversionRate);
 
-//        $mpesaPhoneNumber = $mrequest->query('mpesa_phone');
 
-        $this->Amount = 1;
-        $this->AccountReference = 'Demo reference';
-        $this->TransactionDesc = "Naphtech Ecommerce";
-        $this->PartyA = $mpesa_phone;
-        $this->user = "demo";
-        $this->AddData();
-        $this->RequestPayment();
-        $data['response'] = $this->json;
+            $totalInKsh = $totalInUSD * $conversionRate;
 
-        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => session()->get('id')]);
-//        dd(session()->get('id'));
+            $data['totalInKsh'] = $totalInKsh;
 
-        return redirect()->back()->with('message', 'Transaction Initiated Successfully');
+            $this->Amount = $totalInKsh;
+            $this->AccountReference = 'Demo reference';
+            $this->TransactionDesc = "Franciscan Agencies";
+            $this->PartyA = $mpesa_phone;
+            $this->user = "demo";
+            $this->AddData();
+            $this->RequestPayment();
+            $data['response'] = $this->json;
+
+
+            Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => session()->get('id')]);
+
+            return redirect()->back()->with('message', 'Transaction Initiated Successfully');
+        } else {
+            return redirect()->back()->with('error', 'Failed to retrieve exchange rate and transact');
+        }
+
     }
 
 
@@ -267,33 +282,31 @@ class MpesaController extends Controller
     }
 
 
-    public function updateStatus()
-    {
-        try {
-            $value = json_decode($this->stkCallbackResponse, true);
-            if ($value["Body"]["stkCallback"]["ResultCode"] == "0") {
+    public function updateStatus() {
+        $value = json_decode($this->stkCallbackResponse, true);
+        $order_num = session()->get('id');
+        $userId = auth()->user()->id;
 
-                // The current logged-in user
-                $userId = auth()->user()->id;
+        if ($value["Body"]["stkCallback"]["ResultCode"] == "0") {
+            $MerchantRequestID = $value["Body"]["stkCallback"]["MerchantRequestID"];
+            $CheckoutRequestID = $value["Body"]["stkCallback"]["CheckoutRequestID"];
+            $ResponseCode = $value["Body"]["stkCallback"]["ResultCode"];
+            $desc  = $value["Body"]["stkCallback"]["ResultDesc"];
+            $confirm = $value["Body"]["stkCallback"]["CallbackMetadata"]["Item"][1]["Value"];
 
-                // Retrieve the order ID from the session
-                $orderId = session()->get('id');
-
-                // Update the payment record
-                $order = Order::where('user_id', $userId)
-                    ->where('id', $orderId)
-                    ->first();
+            $payment = Payments::where('MerchantRequestID', $MerchantRequestID)->where('CheckoutRequestID', $CheckoutRequestID)->first();
 
 
-                if ($order) {
-                    $order->payment_status = 'paid';
-                    $order->update();
-                }
+            if ($payment != null) {
+                $payment->ResponseCodeCo = $ResponseCode;
+                $payment->description = $desc;
+                $payment->confirm = $confirm;
+                $payment->update();
+
+                Order::where('id', $order_num)
+                    ->where('user_id', $userId)
+                    ->update(['payment_status' => 'paid']);
             }
-        } catch (\Exception $e) {
-            // Log the exception for debugging purposes
-            Log::error('Error in updateStatus mpesa: ' . $e->getMessage());
-            // Handle the error or return an appropriate response
         }
     }
 

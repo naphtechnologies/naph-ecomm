@@ -26,6 +26,7 @@ class OrderController extends Controller
         return view('backend.order.index')->with('orders', $orders);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -122,7 +123,7 @@ class OrderController extends Controller
 //            dd($mpesaPhoneNumber);
             return redirect()->route('mpesa-simulate', ['mpesa_phone' => $mpesaPhoneNumber])->with(['id' => $order->id]);
         } elseif (request('payment_method') == 'mtn') {
-            return redirect()->route('momo-pay', ['order_id' => $order->id])->with(['id' => $order->id]);
+            return redirect()->route('momo-pay', ['order_id' => $order->id, 'total_amount' => $order->total_amount])->with(['id' => $order->id]);
         }
         else {
             session()->forget('cart');
@@ -248,6 +249,7 @@ class OrderController extends Controller
             return back();
         }
     }
+
 
     // PDF generate
     public function pdf(Request $request)

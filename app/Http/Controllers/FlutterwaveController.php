@@ -14,7 +14,7 @@ class FlutterwaveController extends Controller
      * Initialize Rave payment process
      * @return void
      */
-    public function initialize($order_id)
+    public function initialize($order_id, $total_amount)
     {
         //This generates a payment reference
         $reference = Flutterwave::generateReference();
@@ -53,11 +53,11 @@ class FlutterwaveController extends Controller
         // Enter the details of the payment
         $data = [
             'payment_options' => 'card,banktransfer',
-            'amount' => 5000,
+            'amount' => $total_amount,
             'email' => auth()->user()->email,
             'tx_ref' => $reference,
             'currency' => "UGX",
-            'redirect_url' => route('callback', ['order_id' => $order_id]),
+            'redirect_url' => route('callback', ['order_id' => $order_id, 'total_amount' => $total_amount]),
             'customer' => [
                 'email' => auth()->user()->email,
                 "phone_number" => auth()->user()->contact_number,
