@@ -98,14 +98,18 @@ class MpesaController extends Controller
 //        dd($exchangeRateData);
 
         if (isset($exchangeRateData['result']) && $exchangeRateData['result'] === 'success') {
-            $conversionRate = $exchangeRateData['conversion_rate'];
+            $conversionRate = intval($exchangeRateData['conversion_rate']);
 
 //            dd($conversionRate);
 
 
             $totalInKsh = $totalInUSD * $conversionRate;
 
+            $totalInKsh = intval($totalInKsh);
+
             $data['totalInKsh'] = $totalInKsh;
+
+//            dd($totalInKsh);
 
             $this->Amount = $totalInKsh;
             $this->AccountReference = 'Demo reference';

@@ -48,7 +48,7 @@ class UsersController extends Controller
         // dd($request->all());
         $data=$request->all();
         $data['password']=Hash::make($request->password);
-        // dd($data);
+//         dd($data);
         $status=User::create($data);
         // dd($status);
         if($status){
@@ -105,7 +105,7 @@ class UsersController extends Controller
         // dd($request->all());
         $data=$request->all();
         // dd($data);
-        
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated');

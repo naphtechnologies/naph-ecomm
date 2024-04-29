@@ -2,38 +2,39 @@
 @section('title','Franciscan Agencies')
 @section('main-content')
 
-    <div class="section mt-5">
-        <div class="edica-header edica-landing-header">
-            <div class="container">
-                <div class="edica-landing-header-content">
-                    <div id="edicaLandingHeaderCarousel" class="" >
+    <!-- Slider Area -->
+    @if(count($banners)>0)
+        <section id="Gslider" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @foreach($banners as $key=>$banner)
+                    <li data-target="#Gslider" data-slide-to="{{$key}}" class="{{(($key==0)? 'active' : '')}}"></li>
+                @endforeach
 
-                        <div class="" role="listbox">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-6 carousel-content-wrapper">
-                                        <h1 >Welcome to Franciscan Agencies</h1>
-                                        <br>
-                                        <p>Get to order your catholic merchandise on the go! Available in East Africa!</p>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <div class="carousel-content-btns">
-                                            <a href="{{route('login.form')}}" class="btn btn-success text-white">Start SHopping</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <img src="{{asset('frontend/img/africshop.png')}}" alt="carousel-img" class="img-fluid mr-10" width="750px">
-                                    </div>
-                                </div>
-                            </div>
-
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                @foreach($banners as $key=>$banner)
+                    <div class="carousel-item {{(($key==0)? 'active' : '')}}">
+                        <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block text-left">
+                            <h1 class="wow fadeInDown text-white">{{$banner->title}}</h1>
+                            <p class="font-weight-bold">{!! html_entity_decode($banner->description) !!}</p>
+                            <a class="btn btn-lg ws-btn wow fadeInUpBig text-white" href="{{route('product-grids')}}" role="button">Shop Now<i class="far fa-arrow-alt-circle-right"></i></i></a>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-        </div>
-    </div>
+            <a class="carousel-control-prev" href="#Gslider" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#Gslider" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </section>
+    @endif
+
+    <!--/ End Slider Area -->
 
     <!-- Start Product Area -->
     <div class="product-area section">
@@ -41,7 +42,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Trending Item</h2>
+                        <h2>Trending Items</h2>
                     </div>
                 </div>
             </div>
