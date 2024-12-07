@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MpesaController;
+use App\Http\Controllers\PaymentController;
 use App\Models\RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,6 @@ Route::post('/callback', function () {
     $mpesa->updateStatus();
     return $data;
 });
+
+Route::get('/payment/callback', [PaymentController::class, 'paystackCallback']);
+

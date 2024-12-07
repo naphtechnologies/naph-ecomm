@@ -225,11 +225,7 @@
     <div class="sidebar-heading">
         General Settings
     </div>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('mpesa-settings')}}">
-            <i class="fas fa-table"></i>
-            <span>Mpesa Settings</span></a>
-    </li>
+
     <li class="nav-item">
       <a class="nav-link" href="{{route('coupon.index')}}">
           <i class="fas fa-table"></i>

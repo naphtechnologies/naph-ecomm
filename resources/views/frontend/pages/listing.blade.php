@@ -63,7 +63,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-secondary">
                                     <i class="fas fa-money-bill-alt"></i> Asking Price:
-                                    <span class="float-right">${{ $listing ->price }}</span>
+                                    <span class="float-right">Ksh. {{ $listing ->price }}</span>
                                 </li>
                                 <li class="list-group-item text-secondary">
                                     <i class="fas fa-bed"></i> Bedrooms:

@@ -88,14 +88,10 @@ class OrderController extends Controller
         }
         // return $order_data['total_amount'];
         $order_data['status'] = "new";
-        if (request('payment_method') == 'paypal') {
-            $order_data['payment_method'] = 'paypal';
-            $order_data['payment_status'] = 'paid';
-        } elseif (request('payment_method') == 'mpesa') {
-            $order_data['payment_method'] = 'mpesa';
+        if (request('payment_method') == 'mpesa/card') {
+            $order_data['payment_method'] = 'mpesa/card';
             $order_data['payment_status'] = 'Unpaid';
-        }
-        else {
+        } else {
             $order_data['payment_method'] = 'cod';
             $order_data['payment_status'] = 'Unpaid';
         }
@@ -117,13 +113,13 @@ class OrderController extends Controller
 
         $mpesaPhoneNumber = $request->query('mpesa_phone');
 
-        if (request('payment_method') == 'paypal') {
-            return redirect()->route('payment')->with(['id' => $order->id]);
+        if (request('payment_method') == 'mpesa/card') {
+            return redirect()->route('payment', ['order_id' => $order->id, 'total_amount' => $order->total_amount])->with(['id' => $order->id]);
         } elseif (request('payment_method') == 'mpesa') {
 //            dd($mpesaPhoneNumber);
             return redirect()->route('mpesa-simulate', ['mpesa_phone' => $mpesaPhoneNumber])->with(['id' => $order->id]);
         } elseif (request('payment_method') == 'mtn') {
-            return redirect()->route('momo-pay', ['order_id' => $order->id, 'total_amount' => $order->total_amount])->with(['id' => $order->id]);
+            return redirect()->route('payment', ['order_id' => $order->id, 'total_amount' => $order->total_amount])->with(['id' => $order->id]);
         }
         else {
             session()->forget('cart');

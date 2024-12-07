@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FlutterwaveController;
 use App\Http\Controllers\MpesaController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaypalController;
 
@@ -102,18 +103,10 @@ Route::post('post/{slug}/comment', 'PostCommentController@store')->name('post-co
 Route::resource('/comment', 'PostCommentController');
 // Coupon
 Route::post('/coupon-store', 'CouponController@couponStore')->name('coupon-store');
-// Payment
-Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
-Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');
-Route::get('payment/success', [PayPalController::class, 'success'])->name('payment.success');
+// Payment with Paystack
+Route::get('payment/{order_id}/{total_amount}', [PaymentController::class, 'triggerPayment'])->name('payment');
 
-//Payment with M-pesa
-Route::get('simulate/{mpesa_phone}', [MpesaController::class,'simulate'])->name('mpesa-simulate');
-
-//Payment with Flutterwave(MTN MOMO)
-Route::get('/pay/{order_id}/{total_amount}', [FlutterwaveController::class, 'initialize'])->name('momo-pay');
-// The callback url after a payment
-Route::get('/rave/callback', [FlutterwaveController::class, 'callback'])->name('callback');
+//Route::get('/pay/{order_id}/{total_amount}', [FlutterwaveController::class, 'initialize'])->name('momo-pay');
 
 Route::post('/inquiry', 'FrontendController@sendInquiry')->name('send-inquiry');
 

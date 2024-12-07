@@ -41,7 +41,7 @@
                                                     <a href="{{ route('single.listing', $listing -> id) }}">{{$listing->title}}</a>
                                                 </h3>
                                                 <div class="product-price">
-                                                    <span>${{number_format($listing->price)}}</span>
+                                                    <span>Ksh. {{number_format($listing->price)}}</span>
                                                 </div>
                                             </div>
                                         </div>

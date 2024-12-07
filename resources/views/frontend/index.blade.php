@@ -36,6 +36,39 @@
 
     <!--/ End Slider Area -->
 
+    <!-- Start Small Banner  -->
+    <section class="small-banner section">
+        <div class="container-fluid">
+            <div class="row">
+                @php
+                    $category_lists=DB::table('categories')->where('status','active')->limit(3)->get();
+                @endphp
+                @if($category_lists)
+                    @foreach($category_lists as $cat)
+                        @if($cat->is_parent==1)
+                            <!-- Single Banner  -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-banner">
+                                    @if($cat->photo)
+                                        <img src="{{$cat->photo}}" alt="{{$cat->photo}}">
+                                    @else
+                                        <img src="https://via.placeholder.com/600x370" alt="#">
+                                    @endif
+                                    <div class="content">
+                                        <h3>{{$cat->title}}</h3>
+                                        <a href="{{route('product-cat',$cat->slug)}}">Discover Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <!-- /End Single Banner  -->
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </section>
+    <!-- End Small Banner -->
+
     <!-- Start Product Area -->
     <div class="product-area section">
         <div class="container">
@@ -120,9 +153,9 @@
                                                     @php
                                                         $after_discount=($product->price-($product->price*$product->discount)/100);
                                                     @endphp
-                                                    <span>${{number_format($after_discount,2)}}</span>
+                                                    <span>Ksh. {{number_format($after_discount,2)}}</span>
                                                     <del style="padding-left:4%;">
-                                                        ${{number_format($product->price,2)}}</del>
+                                                        Ksh. {{number_format($product->price,2)}}</del>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +215,7 @@
                                                     <a href="{{ route('single.listing', $listing -> id) }}">{{$listing->title}}</a>
                                                 </h3>
                                                 <div class="product-price">
-                                                    <span>${{number_format($listing->price)}}</span>
+                                                    <span>Ksh. {{number_format($listing->price)}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,11 +307,11 @@
 {{--                                        <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a>--}}
 {{--                                        </h3>--}}
 {{--                                        <div class="product-price">--}}
-{{--                                            <span class="old">${{number_format($product->price,2)}}</span>--}}
+{{--                                            <span class="old">Ksh. {{number_format($product->price,2)}}</span>--}}
 {{--                                            @php--}}
 {{--                                                $after_discount=($product->price-($product->price*$product->discount)/100)--}}
 {{--                                            @endphp--}}
-{{--                                            <span>${{number_format($after_discount,2)}}</span>--}}
+{{--                                            <span>Ksh. {{number_format($after_discount,2)}}</span>--}}
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
@@ -328,7 +361,7 @@
                                             <div class="content">
                                                 <h4 class="title"><a href="#">{{$product->title}}</a></h4>
                                                 <p class="price with-discount">
-                                                    ${{number_format($product->discount,2)}}</p>
+                                                    Ksh. {{number_format($product->discount,2)}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -345,82 +378,39 @@
     <!-- End Shop Home List  -->
 
     <!-- Start Shop Blog  -->
-{{--    <section class="shop-blog section">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-12">--}}
-{{--                    <div class="section-title">--}}
-{{--                        <h2>From Our Blog</h2>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="row">--}}
-{{--                @if($posts)--}}
-{{--                    @foreach($posts as $post)--}}
-{{--                        <div class="col-lg-4 col-md-6 col-12">--}}
-{{--                            <!-- Start Single Blog  -->--}}
-{{--                            <div class="shop-single-blog">--}}
-{{--                                <img src="{{$post->photo}}" alt="{{$post->photo}}">--}}
-{{--                                <div class="content">--}}
-{{--                                    <p class="date">{{$post->created_at->format('d M , Y. D')}}</p>--}}
-{{--                                    <a href="{{route('blog.detail',$post->slug)}}" class="title">{{$post->title}}</a>--}}
-{{--                                    <a href="{{route('blog.detail',$post->slug)}}" class="more-btn">Continue Reading</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <!-- End Single Blog  -->--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
+    <section class="shop-blog section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>From Our Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @if($posts)
+                    @foreach($posts as $post)
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <!-- Start Single Blog  -->
+                            <div class="shop-single-blog">
+                                <img src="{{$post->photo}}" alt="{{$post->photo}}">
+                                <div class="content">
+                                    <p class="date">{{$post->created_at->format('d M , Y. D')}}</p>
+                                    <a href="{{route('blog.detail',$post->slug)}}" class="title">{{$post->title}}</a>
+                                    <a href="{{route('blog.detail',$post->slug)}}" class="more-btn">Continue Reading</a>
+                                </div>
+                            </div>
+                            <!-- End Single Blog  -->
+                        </div>
+                    @endforeach
+                @endif
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+            </div>
+        </div>
+    </section>
     <!-- End Shop Blog  -->
 
-    <!-- Start Shop Services Area -->
-{{--    <section class="shop-services section home">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-3 col-md-6 col-12">--}}
-{{--                    <!-- Start Single Service -->--}}
-{{--                    <div class="single-service">--}}
-{{--                        <i class="ti-rocket"></i>--}}
-{{--                        <h4>Free shiping</h4>--}}
-{{--                        <p>Orders over $100</p>--}}
-{{--                    </div>--}}
-{{--                    <!-- End Single Service -->--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-6 col-12">--}}
-{{--                    <!-- Start Single Service -->--}}
-{{--                    <div class="single-service">--}}
-{{--                        <i class="ti-reload"></i>--}}
-{{--                        <h4>Free Return</h4>--}}
-{{--                        <p>Within 30 days returns</p>--}}
-{{--                    </div>--}}
-{{--                    <!-- End Single Service -->--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-6 col-12">--}}
-{{--                    <!-- Start Single Service -->--}}
-{{--                    <div class="single-service">--}}
-{{--                        <i class="ti-lock"></i>--}}
-{{--                        <h4>Sucure Payment</h4>--}}
-{{--                        <p>100% secure payment</p>--}}
-{{--                    </div>--}}
-{{--                    <!-- End Single Service -->--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-6 col-12">--}}
-{{--                    <!-- Start Single Service -->--}}
-{{--                    <div class="single-service">--}}
-{{--                        <i class="ti-tag"></i>--}}
-{{--                        <h4>Best Peice</h4>--}}
-{{--                        <p>Guaranteed price</p>--}}
-{{--                    </div>--}}
-{{--                    <!-- End Single Service -->--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-    <!-- End Shop Services Area -->
+    @include('frontend.pages.services')
 
 {{--    @include('frontend.layouts.newsletter')--}}
 
@@ -490,8 +480,8 @@
                                             $after_discount=($product->price-($product->price*$product->discount)/100);
                                         @endphp
                                         <h3><small>
-                                                <del class="text-muted">${{number_format($product->price,2)}}</del>
-                                            </small> ${{number_format($after_discount,2)}}  </h3>
+                                                <del class="text-muted">Ksh. {{number_format($product->price,2)}}</del>
+                                            </small> Ksh. {{number_format($after_discount,2)}}  </h3>
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary) !!}</p>
                                         </div>

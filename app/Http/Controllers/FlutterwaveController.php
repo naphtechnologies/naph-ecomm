@@ -21,7 +21,6 @@ class FlutterwaveController extends Controller
         $cart = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get()->toArray();
         $proddata = [];
 
-
         // return $cart;
         $proddata['items'] = array_map(function ($item) use ($cart) {
             $name = Product::where('id', $item['product_id'])->pluck('title');
@@ -57,7 +56,7 @@ class FlutterwaveController extends Controller
             'email' => auth()->user()->email,
             'tx_ref' => $reference,
             'currency' => "UGX",
-            'redirect_url' => route('callback', ['order_id' => $order_id, 'total_amount' => $total_amount]),
+            'redirect_url' => route('/payment/callback', ['order_id' => $order_id, 'total_amount' => $total_amount]),
             'customer' => [
                 'email' => auth()->user()->email,
                 "phone_number" => auth()->user()->contact_number,

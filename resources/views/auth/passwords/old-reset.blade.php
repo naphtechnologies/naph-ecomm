@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" novalidate>
                         @csrf
 
                         <div class="form-group row">

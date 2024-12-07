@@ -163,6 +163,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/fractal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/flugger/laravel-responder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kingflamez/laravelrave" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/unicodeveloper/laravel-paystack" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

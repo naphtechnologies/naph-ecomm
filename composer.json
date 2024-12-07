@@ -18,6 +18,7 @@
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-newsletter": "^5.1",
         "srmklive/paypal": "^3.0",
+        "unicodeveloper/laravel-paystack": "^1.2",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {

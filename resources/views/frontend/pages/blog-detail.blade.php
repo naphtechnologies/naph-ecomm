@@ -139,7 +139,10 @@
                             <ul class="categor-list">
                                 {{-- {{count(Helper::postCategoryList())}} --}}
                                 @foreach(Helper::postCategoryList('posts') as $cat)
-                                <li><a href="#">{{$cat->title}} </a></li>
+                                <li><a href="#">Wewee </a></li>
+                                    <li><a href="#">Wewee </a></li>
+                                    <li><a href="#">Wewee </a></li>
+                                    <li><a href="#">Wewee </a></li>
                                 @endforeach
                             </ul>
                         </div>

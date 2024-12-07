@@ -165,6 +165,7 @@
       <path value="$PROJECT_DIR$/vendor/league/fractal" />
       <path value="$PROJECT_DIR$/vendor/flugger/laravel-responder" />
       <path value="$PROJECT_DIR$/vendor/kingflamez/laravelrave" />
+      <path value="$PROJECT_DIR$/vendor/unicodeveloper/laravel-paystack" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
