@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use Database\Seeders\SettingTableSeeder;
+use Illuminate\Database\seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,8 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
-         $this->call(SettingTableSeeder::class);
          $this->call(CouponSeeder::class);
 
 
